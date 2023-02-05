@@ -1,17 +1,16 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import TitleCounter from "../../components/Title";
-import shadyCounter from "../shadyCounter";
 import DisplayContainer from "./display-container/DisplayContainer";
 import FormContainer from "./form-container/FormContainer";
 import FullName from "./FullName";
 
-const count = shadyCounter();
 export default function ContentContainer() {
-  const renderCount = count();
   const [textValue, setTextValue] = useState("");
+  const counter = useRef<number>(0);
+  counter.current = counter.current + 1;
   return (
     <div className="container">
-      <TitleCounter title={<h3>Parent Container</h3>} counter={renderCount} />
+      <TitleCounter title={<h3>Parent Container</h3>} counter={counter.current} />
       <div className="flex-column">
         <div>
           <small> Type here : </small>

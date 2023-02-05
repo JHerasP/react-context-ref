@@ -1,17 +1,18 @@
+import { useRef } from "react";
 import { useStore } from "../store/useStore";
-import shadyCounter from "../views/shadyCounter";
 
-const count = shadyCounter();
 export default function DisplayStore() {
-  const renderCount = count();
   const { state: selectedField } = useStore((store) => store["field"]);
   const { state: fieldValue } = useStore((store) => store[selectedField]);
+
+  const counter = useRef<number>(0);
+  counter.current = counter.current + 1;
 
   return (
     <div className="value">
       <div className="flex-row">
         {selectedField}: {fieldValue}
-        <small> Renders: {renderCount}</small>
+        <small> Renders: {counter.current}</small>
       </div>
     </div>
   );

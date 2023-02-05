@@ -1,10 +1,10 @@
+import { useRef } from "react";
 import { ContextStore, useStore } from "../store/useStore";
-import shadyCounter from "../views/shadyCounter";
-const count = shadyCounter();
 
 export default function TextInputStore({ field }: { field: keyof ContextStore }) {
   const { state, dispatch } = useStore((store) => store[field]);
-  const renderCount = count();
+  const counter = useRef<number>(0);
+  counter.current = counter.current + 1;
 
   return (
     <div className="flex-row">
@@ -12,7 +12,7 @@ export default function TextInputStore({ field }: { field: keyof ContextStore })
         {field}:
         <input value={state} onChange={(e) => dispatch({ [field]: e.target.value })} />
       </div>
-      <small> Renders: {renderCount}</small>
+      <small> Renders: {counter.current}</small>
     </div>
   );
 }
